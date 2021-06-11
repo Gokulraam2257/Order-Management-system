@@ -1,0 +1,39 @@
+
+body{
+  font-family: 'Roboto';
+}
+.user {
+  font-family: 'Caveat', cursive;
+  font-weight: 550;
+  margin-left: auto;
+}
+
+.navbar-brand {
+  font-size: 55;
+
+}
+
+.navbar-text{
+  display: inline-flex;
+  vertical-align: top;
+}
+
+ul.cart {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(5, 152, 189);
+  background : rgb(5, 152, 189);
+  border-radius: 10px;
+}
+
+li {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+

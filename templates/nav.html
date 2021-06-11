@@ -1,0 +1,197 @@
+<html>
+<!-- Add additional CSS in static file --> 
+{% load static %} 
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+<link rel = "stylesheet" type = "text/css" href = "{% static 'table/css/bootstrap.css' %}"/>
+<link rel = "stylesheet" type = "text/css" href = "{% static 'table/css/jquery.dataTables.css' %}"/>
+</head>
+<link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+
+    <head>{% block title %}<title>Raamjee foods</title>{% endblock %} 
+      {% load static %}
+
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/></head>
+    <body>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Caveat:wght@500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+
+      <nav class="navbar navbar-expand-lg bg-dark navbar-dark ">
+  <ul class="navbar-nav ">
+   <a class="navbar-brand user" href="#"  >Raamjee Foods</a>
+    <li class="nav-item ">
+      <a class="nav-link" href="{% url 'home:products' %}"><i class="fas fa-shopping-cart" style="font-size:24px"></i>Products</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'home:customers' %}"><i class="fa fa-users" style="font-size:24px"></i>Customer</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'home:order' %}"><i class="fa fa-shopping-bag" style="font-size:24px"></i>Order</a>   
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="#"><i  class="fas fa-shipping-fast" style="font-size:24px"></i>Despacth</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{% url 'home:logout' %}">Logout</a>
+    </li>
+
+    
+
+</ul>
+
+<span class="navbar-item ml-auto">
+   
+ <a class="nav-link" href="{% url 'admin:index' %}"><i  class="fas fa-user-circle " style="font-size:24px; ">{{request.session.username}}</i></a>
+
+    
+  </span>
+</nav>
+<br><br><br><br>
+<div class="card-group">
+<div class="card bg-primary" style="width:400px;">
+  
+  <div class="card-body  text-center">
+    <h1 class="card-title">{{request.session.tot_cust}}</h1>
+    <h2 class="card-text">Total Customers</h2>
+    
+  </div>
+</div>
+<div class="card bg-success" style="width:400px;">
+  
+  <div class="card-body  text-center">
+    <h1 class="card-title">{{request.session.tot_prod}}</h1>
+    <h2 class="card-text">Total Products</h2>
+    
+  </div>
+</div>
+<div class="card bg-warning " style="width:400px;">
+  
+  <div class="card-body  text-center">
+    <h1 class="card-title">{{request.session.total_ord}}</h1>
+    <h2 class="card-text">Total Order</h2>
+    
+  </div>
+</div>
+</div>
+  
+    <br>
+
+
+    </body>
+    <script src = "{% static 'table/js/jquery-3.2.1.js' %}"></script>
+    <script src = "{% static 'table/js/jquery.dataTables.js' %}"></script>
+    <script type = "text/javascript">
+        $(document).ready(function(){
+            $('#table').DataTable();
+            $('#table2').DataTable();
+            $('#table3').DataTable();
+            $('#table4').DataTable();
+
+        });
+    </script> 
+    {% block body %}
+    <br><br>
+    <div class="dt-prdoucts">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+        
+      <h1><b><center><span class="glyphicon glyphicon-shopping-cart"></span>PRODUCTS</center></b></h1></div>
+      <br><br>
+      <div class="panel-body">
+    <table id = "table" class = "table table-bordered table-hover">
+        <thead class = "alert-success">
+            <tr>
+                <th> Product ID</th>
+                <th> Product Name</th>
+                <th>Product Code</th>
+                <th>Product Rate</th>
+                
+                <th>Product Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for process in prod %}
+            <tr>
+                <td>{{ process.prod_id }}</td>
+                <td>{{ process.prod_name }}</td>
+                <td>{{ process.prod_code }}</td>
+                <td>{{ process.prod_rate }}</td>
+                <td>{{ process.prod_stock }}</td>
+            </tr>
+           {% endfor %}
+        </tbody>
+    </table>
+    </div>
+      </div>
+  </div>
+ <br><br>
+ <div class="panel panel-info">
+ <div class="panel-heading">
+  
+      <h1><b><center><i class="glyphicon glyphicon-user"></i>CUSTOMER</center></b></h1></div>
+      <br><br>
+      <div class="panel-body">
+    <table id = "table2" class = "table table-bordered table-hover">
+        <thead class = "alert-info">
+            <tr>
+                <th> Customer ID</th>
+                <th> Customer First Name</th>
+                <th> Customer Last Name</th>
+                <th> Country</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for cust in customers %}
+            <tr>
+                <td>{{ cust.cust_id }}</td>
+                <td>{{ cust.f_name }}</td>
+                <td>{{ cust.l_name }}</td>
+                <td>{{ cust.country }}</td>
+            </tr>
+           {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <br><br>
+
+    <div class="panel panel-warning">
+ <div class="panel-heading">
+  
+      <h1><b><center><i class="glyphicon glyphicon-shopping-cart"></i>ORDER</center></b></h1></div>
+      <br><br>
+      <div class="panel-body">
+    <table id = "table3" class = "table table-bordered table-hover">
+        <thead class = "alert-warning">
+            <tr>
+                <th> Order ID</th>
+                <th> Order Date</th>
+               
+               
+                <th> Ordered Customer</th>
+                <th> Order Price</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for ord in order %}
+            <tr>
+                <td>{{ ord.ord_id }}</td>
+                <td>{{ ord.ord_date }}</td>
+                
+                <td>{{ ord.cust }}</td>
+                <td>{{ ord.tot_price }}</td>
+            </tr>
+           {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <br><br>
+   
+   
+    {% endblock %}
+</html>

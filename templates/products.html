@@ -1,0 +1,76 @@
+<html>
+<!-- Add additional CSS in static file --> 
+{% load static %} 
+<link rel="stylesheet" type="text/css" href="{% static 'css/add.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+  <link href="{% static 'css/fonts.css' %}" rel="stylesheet" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css">
+  {% block title %}<title>Add Products</title>{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+</head>
+
+<br>
+  
+      {% load static %}
+
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/></head>
+    <body>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Caveat:wght@500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+
+      <nav class="navbar navbar-expand-lg bg-dark navbar-dark ">
+  <ul class="navbar-nav ">
+  <li>
+   <a class="navbar-brand user justify-content-center" href="#" >PRODUCTS</a>
+
+
+    
+
+</ul>
+      </nav>
+      <body>
+          
+      <div class="main">
+       
+        
+ 
+  <form class="form1" method="POST" action="">
+    <center>
+  {% csrf_token %}
+    <label>Product Name:</label>
+  <input class="un "  type="text"  name="prod_name" placeholder="Name" required> <br>
+  <label>Product Code:</label>
+    <input class="un "  type="text"  name="prod_code" placeholder="Code" required>  <br>
+    <label>Product Rate:</label>
+    <input class="un "  type="text"  name="prod_rate" placeholder="Rate" required> <br>
+    <label>Product GST(%):</label>
+    <input class="un "  type="text"  name="prod_gst" placeholder="GST(%)" required> <br>
+    <label>Product Stock:</label>
+        <input class="un "  type="text"  name="prod_stock" placeholder="Stock" required> <br>
+    </center>
+ 
+    
+          <br>
+  
+          
+              <button type="submit" class="submit">SAVE</button>
+              <br>
+              
+                  <button type="reset" class="reset" >Reset</button>
+              
+             
+                  <br>
+             
+                  <button type="reset" class="cancel"><a href="{% url 'home:home' %}" style="color: white;">Cancel</a></button>
+          
+        </div>
+          
+      </form>
+  
+    </body>

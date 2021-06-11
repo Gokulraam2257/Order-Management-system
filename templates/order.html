@@ -1,0 +1,326 @@
+<html>
+<!-- Add additional CSS in static file --> 
+{% load static %} 
+<link rel = "stylesheet" type = "text/css" href = "{% static 'table/css/bootstrap.css' %}"/>
+<link rel = "stylesheet" type = "text/css" href = "{% static 'table/css/jquery.dataTables.css' %}"/>
+</head>
+
+<!--<link rel="stylesheet" type="text/css" href="{% static 'css/customer.css' %}"> -->
+
+    <head>{% block title %}<title>Raamjee foods</title>{% endblock %} 
+      {% load static %}
+
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/></head>
+    <body>
+      <h1 style="text-align:right;"><b>{{request.session.username}}</b><br></h1>
+      {% load static %}
+
+      <img src="{% static 'images/img_avatar.jpeg'%}" alt="Avatar" height="100" width="100" align="right" class="avatar">
+
+<br><br>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body style="height:1500px">
+
+
+        {% block sidebar %}
+        {% block content %}
+        
+        
+        <style>
+          .hide
+          {
+            display: none;
+          }
+        </style>
+        <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+        
+        <div class="main-body">
+        <div class="page-wrapper">
+        
+        <div class="page-header">
+        <div class="row align-items-end">
+        <div class="col-lg-8">
+        <div class="page-header-title">
+        <div class="d-inline">
+        
+        </div>
+        </div>
+        </div>
+        <div class="col-lg-4">
+        <div class="page-header-breadcrumb">
+        
+        </div>
+        </div>
+        </div>
+        </div>
+        
+        <div class="page-body">
+        
+        <div class="card">
+        <div class="card-block">
+        <form class="form-valide" method="POST" name="userform" enctype="multipart/form-data">
+          {% csrf_token %}
+        
+                                                <div class="row">
+                                                <div class="form-group row col-md-6">
+                                                  <label class="col-sm-3 control-label">Customer</label>
+                                                  <div class="col-sm-9">
+                                                    {{form.cust}}
+                                                    <!-- <input type="text" name="customer_name" class="form-control"> -->
+                                                  </div>
+                                                </div>
+        
+                                              
+                                               
+                                            </div>
+                                                
+                                                  <div class="form-group row">
+        
+                                                   <div class="col-sm-3">
+                                                        <div class="col-sm-12">
+                                                         Product
+                                                        </div>
+                                                </div>
+        
+                                                    <div class="col-sm-2">
+                                                    Quantity
+                                                    </div>
+        
+                                                    <div class="col-sm-2">
+                                                   Sale Price
+                                                    </div>
+        
+                                                    <div class="col-sm-2">
+                                                      Total
+                                                    </div>
+                                                 </div>
+                                                 <div class="mydiv">
+                                                {% csrf_token %}
+                                                  <div class="form-group row control-group after-add-more subdiv">
+                                                    {{ frmset.management_form }}   
+
+                                                    {% for iform in frmset %}
+                                                   <div class="col-sm-3">
+                                                        <div class="col-sm-12">
+                                                           {{iform.prod}}
+                                                        </div>
+                                                </div>
+        
+                                                    <div class="col-sm-2">
+                                                      
+                                                    {{iform.ord_qty}}
+                                                    </div>
+                                                   
+        
+                                                    <div class="col-sm-2">
+                                                   {{iform.itm_price}}
+                                                   </div>
+        
+                                                    <div class="col-sm-2">
+                                                   <input type="text" class="form-control total" id="total" name="total[]" placeholder="Total" readonly="" >
+                                                    </div>
+        
+                                                    <div class="col-sm-2">
+                                                    <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                                    </div>
+                                                 </div>
+                                          
+                                              </div>
+        
+                                      <div class="form-group row">
+                                          <label class="col-sm-6 control-label">Total</label>
+                                          <div class="col-sm-3">
+                                              {{form.tot_price}}
+                                          </div>
+                                     </div> 
+                                     
+                                   
+                                       
+                                     {% endfor %}
+                                       
+                                     <div class="form-group row">
+                                          <label class="col-sm-6 control-label">Remark</label>
+                                          <div class="col-sm-3">
+                                              <input type="text" name="remark" id="remark" class="form-control" placeholder="Remark">
+                                          </div>
+                                     </div>
+                                     <button type="submit"  class="btn btn-primary btn-flat m-b-30 m-t-30">Submit</button>
+                    </form>
+                    <div class="copy hide">
+                                 <div class="form-group control-group row subdiv">
+        
+                                  <div class="form-group row control-group  subdiv">
+                                    {{ frmset.management_form }}
+                                    {% for iform in frmset %}
+                                     <div class="col-sm-3">
+                                          <div class="col-sm-12">
+                                             {{iform.prod}}
+                                          </div>
+                                  </div>
+
+                                      <div class="col-sm-2">
+                                        
+                                      {{iform.ord_qty}}
+                                      </div>
+                                     
+
+                                      <div class="col-sm-2">
+                                     {{iform.itm_price}}
+                                     </div>
+                                     {% endfor %}
+
+                                      <div class="col-sm-2">
+                                     <input type="text" class="form-control total" id="total" name="total[]" placeholder="Total" readonly="" >
+                                      </div>
+
+                                      <div class="col-sm-2">
+                                      <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                                      </div>
+                                   </div>
+                            
+                                </div>
+                                
+                              </div>
+               
+        </div>
+        </div>
+        
+        
+        </div>
+        
+        </div>
+        </div>
+        
+        <div id="#">
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        
+        
+        <!--  Author Name: Nikhil Bhalerao - www.nikhilbhalerao.com 
+        PHP, Laravel and Codeignitor Developer -->
+        {% block javascript %}
+        <script type="text/javascript">
+          $(".add-more").on('click',function(){ 
+        
+                  var html = $(".copy").html();
+                  $(".after-add-more").after(html);
+              });  
+        
+              $("body").on("click",".remove",function(){ 
+                  $(this).parents(".control-group").remove();
+              });   
+        </script>
+        <script type="text/javascript">
+        
+        $(document).ready(function() {
+        $('div.mydiv').on("keyup",'input[name^="form-0-itm_price"]',function(event){
+                  var currentRow=$(this).closest('.subdiv');
+                  var quantity =currentRow.find('input[name^="form-0-ord_qty"]').val();
+                  //alert(quantity);
+                  var unitprice=currentRow.find('input[name^="form-0-itm_price"]').val();
+                 //alert(unitprice);
+                
+                  var total = Number(quantity) * Number(unitprice);
+                  var total=+currentRow.find('input[name^="total"]').val(total);
+                 // $('#id_tot_price').val(total);
+            var sum = 0;
+            $('.total').each(function() {
+                sum += Number($(this).val());
+            });
+         $('#id_tot_price').val(sum);
+        $('#final_total').val(sum);
+     
+             });
+             
+             $('div.mydiv').on("keyup",'input[name^="form-0-ord_qty"]',function(event){
+                  var currentRow=$(this).closest('.subdiv');
+                  var quantity =currentRow.find('input[name^="form-0-ord_qty"]').val();
+                  //alert(quantity);
+                  var unitprice=currentRow.find('input[name^="form-0-itm_price"]').val();
+                 //alert(unitprice);
+                
+                  var total = Number(quantity) * Number(unitprice);
+                  var total=+currentRow.find('input[name^="total"]').val(total);
+                 // $('#id_tot_price').val(total);
+            var sum = 0;
+            $('.total').each(function() {
+                sum += Number($(this).val());
+            });
+         $('#id_tot_price').val(sum);
+        $('#final_total').val(sum);
+        
+        var sub_text = $('#id_tot_price').val();
+        var disc=$("#view_discount").val();
+        var sub_total = Number(sub_text)- Number(disc) ; 
+        $("#final_total").val(sub_total);
+        
+        var tot_commi = 0;
+        });
+        
+        $('form').on("keyup",'input[name="advanced_amount"]',function(argument) {
+        var final_total = $('#final_total').val();
+        //alert(final_total);
+        var advanced_amount = $(this).val();
+        //alert(advanced_amount);
+        if(Number(advanced_amount) >  Number(final_total)){
+        alert('Your Amount is greater than:'+final_total);
+        $("#advanced_amount").val("");
+        }
+        else {
+        var cust_amt = Number(final_total)  -  Number(advanced_amount);
+        //alert(cust_amt);
+        var cust_pending = $("#pending_amount").val(cust_amt);
+        }
+        
+          });
+        });
+        
+        
+        
+         $('div.mydiv').on("change",'select[name^="select_services"]',function(event){
+                    var currentRow=$(this).closest('.subdiv');
+                    var drop_services= $(this).val();
+                    $.ajax({
+                        type : "POST",
+                        url  : 'ajax_service.php',
+                        data : {drop_services:drop_services },
+                        success: function(data){
+                            currentRow.find('input[name^="form-0-ord_qty"]').val(1);
+                            currentRow.find('input[name^="form-0-itm_price"]').val(data);
+                            var quantity =currentRow.find('input[name^="form-0-ord_qty"]').val();
+                          var unitprice=currentRow.find('input[name^="form-0-itm_price"]').val();
+                          var total = parseInt(quantity) * parseInt(unitprice);
+                          currentRow.find('input[name^="total"]').val(total);
+                           //var total=+currentRow.find('input[name^="total"]').val(total);
+                 // $('#id_tot_price').val(total);
+            var sum = 0;
+            $('.total').each(function() {
+                if($(this).val()!='')
+                {
+                    sum += parseInt($(this).val());
+                }
+                
+            });
+            
+        var sub = $('#id_tot_price').val(sum);
+        var fsub = $('#final_total').val(sum);
+        
+        var tot_commi = 0;
+                        }
+                    });
+                    
+                });
+                
+        </script>
+        {% endblock javascript %}
+        {% endblock %}
+        {% endblock %}
