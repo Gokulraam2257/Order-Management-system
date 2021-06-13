@@ -157,8 +157,11 @@
         </tbody>
     </table>
     </div>
+  </div>
+</div>
     <br><br>
 
+   
     <div class="panel panel-warning">
  <div class="panel-heading">
   
@@ -189,9 +192,43 @@
            {% endfor %}
         </tbody>
     </table>
-    </div>
+    </div>      </div>
+  </div>
     <br><br>
    
-   
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+       
+           <h1><b><center><i class="glyphicon glyphicon-shopping-cart"></i>ORDER DETAILS</center></b></h1></div>
+           <br><br>
+           <div class="panel-body">
+         <table id = "table4" class = "table table-bordered table-hover">
+             <thead class = "alert-warning">
+                 <tr>
+                     <th> Order  Detail ID</th>
+                     <th> Order ID</th>
+                     <th> Ordered Products</th>
+                     <th> Product Quantity</th>
+                     <th> Product Price</th>
+     
+                 </tr>
+             </thead>
+             <tbody>
+                 {% for ord in ordd %}
+                 <tr>
+                  <td>{{ ord.det_id }}</td>
+                  <td>{{ ord.ord_id }}</td>
+                     <td>{{ ord.prod }}</td>
+                     
+                     <td>{{ ord.ord_qty }}</td>
+                     <td>{{ ord.itm_price }}</td>
+                 </tr>
+                {% endfor %}
+             </tbody>
+         </table>
+         </div>      </div>
+        </div>
+         <br><br>
+        
     {% endblock %}
 </html>

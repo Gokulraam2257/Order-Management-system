@@ -64,12 +64,16 @@ def home(request):
 
     request.session['tot_prod'] = total_products
 
+    Ord_detail = Order_detail.objects.all()
+
+    request.session['tot_prod'] = total_products
+
     order = Order.objects.all()
     total_order = order.count()
     request.session['total_ord'] = total_order
 
     prod = Products.objects.all()
-    return render(request, 'nav.html', {'prod': prod, 'customers': customers, 'order': order})
+    return render(request, 'nav.html', {'prod': prod, 'customers': customers, 'order': order, 'ordd': Ord_detail})
 
 
 @login_required(login_url='/')
@@ -122,7 +126,9 @@ def order(request):
         for f in formset:
             cd = f.cleaned_data
             billdetailsobj.ord_qty = cd.get('ord_qty')
-            billdetailsobj.prod_id = cd.get('prod')
+            prod_nme = Products.objects.get(prod_name=cd.get('prod'))
+            print(prod_nme.prod_id)
+            billdetailsobj.prod_id = prod_nme.prod_id
             billdetailsobj.itm_price = cd.get('itm_price')
 
         billdetailsobj.save()
@@ -131,21 +137,21 @@ def order(request):
         for form in formset:
 
             # false saves the item and links bill to the item
-            billitem = form.save(commit=False)
+
             # links the bill object to the items
-            billitem.ord = billobj
+
             # gets the stock item
-            stock = get_object_or_404(Products, name=billitem.stock.name)
+            stock = get_object_or_404(Products, prod_id=billdetailsobj.prod_id)
             # calculates the total price
-            billitem.totalprice = billitem.itm_price * billitem.ord_qty
+
             # updates quantity in stock db
-            stock.prod_stock -= billitem.ord_qty
+            stock.prod_stock -= billdetailsobj.ord_qty
             # saves bill item and stock
             stock.save()
-            billitem.save()
+            billdetailsobj.save()
         messages.success(
             request, "Sold items have been registered successfully")
-        return render(request, 'home.html')
+        return render(request, 'nav.html')
     form = OrderForm(request.GET or None)
     formset = OrderItemFormset(request.GET or None)
     context = {
