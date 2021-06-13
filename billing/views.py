@@ -106,41 +106,52 @@ def info(request):
 
 @login_required(login_url='/')
 def order(request):
-    Formset = OrderItemFormset(request.POST or None, request.FILES or None)
-
     form = OrderForm(request.POST)
-    if request.method == 'POST':
+    # recieves a post method for the formset
+    formset = OrderItemFormset(request.POST or None)
+
+    print(form.is_valid())
+    print(formset.is_valid())
+    print(formset.errors)
+    if form.is_valid():
+        # saves bill
         billobj = form.save(commit=False)
         billobj.save()
+        # create bill details object
         billdetailsobj = Order_detail(ord=billobj)
+        for f in formset:
+            cd = f.cleaned_data
+            billdetailsobj.ord_qty = cd.get('ord_qty')
+            billdetailsobj.prod_id = cd.get('prod')
+            billdetailsobj.itm_price = cd.get('itm_price')
 
         billdetailsobj.save()
+
         # for loop to save each individual form as its own object
-        for form in Formset:
+        for form in formset:
 
             # false saves the item and links bill to the item
             billitem = form.save(commit=False)
             # links the bill object to the items
-            billitem.billno = billobj
+            billitem.ord = billobj
             # gets the stock item
-            stock = get_object_or_404(Products, name=billitem.prod.prod_name)
+            stock = get_object_or_404(Products, name=billitem.stock.name)
             # calculates the total price
-            billitem.totalprice = billitem.item_price * billitem.ord_qty
+            billitem.totalprice = billitem.itm_price * billitem.ord_qty
             # updates quantity in stock db
-            stock.prod_stock -= billitem.quantity
+            stock.prod_stock -= billitem.ord_qty
             # saves bill item and stock
             stock.save()
             billitem.save()
-            print(billobj.billno)
-
-        return redirect('/home')
-    else:
-        form = OrderForm()
-        Formset = OrderItemFormset()
-        context = {
-            'form': form,
-            'frmset': Formset,
-        }
+        messages.success(
+            request, "Sold items have been registered successfully")
+        return render(request, 'home.html')
+    form = OrderForm(request.GET or None)
+    formset = OrderItemFormset(request.GET or None)
+    context = {
+        'form': form,
+        'formset': formset,
+    }
     return render(request, 'order.html', context)
 
 

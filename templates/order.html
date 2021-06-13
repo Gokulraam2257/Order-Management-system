@@ -59,6 +59,9 @@
         </div>
         
         <div class="page-body">
+          {% if formset.non_form_errors %}
+      <div class="alert alertdanger">{{formset.non_form_errors}}</div>
+    {% endif %}
         
         <div class="card">
         <div class="card-block">
@@ -101,9 +104,9 @@
                                                  <div class="mydiv">
                                                 {% csrf_token %}
                                                   <div class="form-group row control-group after-add-more subdiv">
-                                                    {{ frmset.management_form }}   
+                                                    {{ formset.management_form }}   
 
-                                                    {% for iform in frmset %}
+                                                    {% for iform in formset %}
                                                    <div class="col-sm-3">
                                                         <div class="col-sm-12">
                                                            {{iform.prod}}
@@ -154,8 +157,8 @@
                                  <div class="form-group control-group row subdiv">
         
                                   <div class="form-group row control-group  subdiv">
-                                    {{ frmset.management_form }}
-                                    {% for iform in frmset %}
+                                    {{ formset.management_form }}
+                                    {% for iform in formset %}
                                      <div class="col-sm-3">
                                           <div class="col-sm-12">
                                              {{iform.prod}}
