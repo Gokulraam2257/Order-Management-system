@@ -115,7 +115,7 @@ def order(request):
     formset = OrderItemFormset(request.POST or None)
 
     print(form.is_valid())
-    print(formset.is_valid())
+
     print(formset.errors)
     if form.is_valid():
         # saves bill
@@ -151,7 +151,7 @@ def order(request):
             billdetailsobj.save()
         messages.success(
             request, "Sold items have been registered successfully")
-        return render(request, 'nav.html')
+        return redirect('/home')
     form = OrderForm(request.GET or None)
     formset = OrderItemFormset(request.GET or None)
     context = {
