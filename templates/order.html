@@ -271,7 +271,7 @@
           </script>
         <script>
           var forms = $('.after-add-more');
-          var i=0;
+           for (var i=0, formCount=forms.length; i<formCount; i++) {
         $(document).ready(function() {
         $('div.mydiv').on("keyup",'input[name^="form-'+i+'-itm_price"]',function(event){
                   var currentRow=$(this).closest('.subdiv');
@@ -320,8 +320,8 @@
         
       
         
-         
-        });
+          });
+        
         
         
         
@@ -358,7 +358,7 @@
                     });
                     
                 });
-             
+              }
                 
                 
         </script>
