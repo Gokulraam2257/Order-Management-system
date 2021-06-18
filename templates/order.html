@@ -272,6 +272,7 @@
              
              
              $('div.mydiv').on("keyup",'input[name^="form-'+i+'-ord_qty"]',function(event){
+                 alert("came!")
                   for (var i=0 ; i<=tot_form ; i++){
                   var currentRow=$(this).closest('.subdiv');
                   var quantity = $(document).find('input[name^="form-'+i+'-ord_qty"]').val();
