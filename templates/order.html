@@ -305,12 +305,13 @@
              $('div.mydiv').on("keyup",'input[name^="form-'+i+'-ord_qty"]',function(event){
                   for (var i=0 ; i<=tot_form ; i++){
                   var currentRow=$(this).closest('.subdiv');
-                  var quantity =currentRow.find('input[name^="form-'+i+'-ord_qty"]').val();
+                  var quantity = $(document).find('input[name^="form-'+i+'-ord_qty"]').val();
                   //alert(quantity);
-                  var unitprice=currentRow.find('input[name^="form-'+i+'-itm_price"]').val();
+                  var unitprice= $(document).find('input[name^="form-'+i+'-itm_price"]').val();
                  //alert(unitprice);
                 
                   var total = Number(quantity) * Number(unitprice);
+                      window.alert(total);
                   var total=+currentRow.find('input[name^="total"]').val(total);
                  // $('#id_tot_price').val(total);
             var sum = 0;
