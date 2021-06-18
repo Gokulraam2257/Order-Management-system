@@ -153,41 +153,9 @@
                                      </div>
                                      <button type="submit"  class="btn btn-primary btn-flat m-b-30 m-t-30">Submit</button>
                     </form>
-                    <div class="copy hide">
-                                 <div class="form-group control-group row subdiv">
-        
-                                  <div class="form-group row control-group  subdiv">
-                                    {{ formset.management_form }}
-                                    {% for iform in formset %}
-                                     <div class="col-sm-3">
-                                          <div class="col-sm-12">
-                                             {{iform.prod}}
-                                          </div>
-                                  </div>
-
-                                      <div class="col-sm-2">
-                                        
-                                      {{iform.ord_qty}}
-                                      </div>
-                                     
-
-                                      <div class="col-sm-2">
-                                     {{iform.itm_price}}
-                                     </div>
-                                     {% endfor %}
-
-                                      <div class="col-sm-2">
-                                    
-                                      </div>
-
-                                      <div class="col-sm-2">
-                                      <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
-                                      </div>
-                                   </div>
-                            
-                                </div>
+                   
                                 
-                              </div>
+                            
                
         </div>
         </div>
