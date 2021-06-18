@@ -279,10 +279,10 @@
         $(document).ready(function() {
           var tot_form = $('#id_form-TOTAL_FORMS').val() -1
           window.alert(tot_form);
-        
+        for (var i=0 ; i<=tot_form ; i++){
          
         $('div.mydiv').on("keyup",'input[name^="form-'+i+'-itm_price"]',function(event){
-         
+          for (var i=0 ; i<=tot_form ; i++){
                window.alert('input[name^="form-'+i+'-itm_price"]');
           var currentRow=$(this).closest('.subdiv');
                   var quantity =currentRow.find('input[name^="form-'+i+'-ord_qty"]').val();
@@ -299,10 +299,11 @@
             });
          $('#id_tot_price').val(sum);
         $('#final_total').val(sum);
-     
+          }
              });
              
              $('div.mydiv').on("keyup",'input[name^="form-'+i+'-ord_qty"]',function(event){
+                  for (var i=0 ; i<=tot_form ; i++){
                   var currentRow=$(this).closest('.subdiv');
                   var quantity =currentRow.find('input[name^="form-'+i+'-ord_qty"]').val();
                   //alert(quantity);
@@ -327,7 +328,7 @@
         var tot_commi = 0;
         });
         
-        
+             }
          
         
           });
@@ -369,7 +370,8 @@
                     
                 });
                 
-             i++
+            
+        }
               
              
                 
