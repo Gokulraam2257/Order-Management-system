@@ -112,19 +112,20 @@ def info(request):
 def order(request):
     form = OrderForm(request.POST)
     # recieves a post method for the formset
-    formset = OrderItemFormset(request.POST or None)
+    formset = OrderItemFormset(request.POST)
     print(form.is_valid())
-    print(formset.is_valid)
+    print(formset.is_valid())
+    # print(formset.errors)
     if form.is_valid():
         # saves bill
         billobj = form.save(commit=False)
-
+        ord = billobj
         # create bill details object
 
         for f in formset:
             cd = f.cleaned_data
-            ord = billobj
-            print(f)
+
+            print(ord)
             ord_qty = cd.get('ord_qty')
             prod_nme = Products.objects.get(prod_name=cd.get('prod'))
             print(prod_nme.prod_id)
