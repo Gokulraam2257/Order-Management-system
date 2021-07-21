@@ -124,7 +124,7 @@
                                                    </div>
         
                                                     <div class="col-sm-2">
-                                                   <input type="text" class="form-control total" id="total" name="total[]" placeholder="Total" readonly="" >
+                                                   <input type="text" class="form-control total" id="id_form-0-total" name="form-0-total" placeholder="Total" readonly="" onclick='getID()'>
                                                     </div>
         
                                                     <div class="col-sm-2">
@@ -193,6 +193,8 @@
               newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
                   var name = $(this).attr('name').replace('-' + (total-1) + '-', '-' + total + '-');
                   var id = 'id_' + name;
+                 // console.log(id)
+
                   $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
               });
               newElement.find('label').each(function() {
@@ -203,6 +205,7 @@
                   }
               });
               total++;
+              //console.log(total)
               $('#id_' + prefix + '-TOTAL_FORMS').val(total);
              
               $(selector).after(newElement);
@@ -240,91 +243,27 @@
               return false;
           });
           </script>
-        <script>
-          var forms = $('.after-add-more');
-         
 
-          var tot_form = $('#id_form-TOTAL_FORMS').val() -1
-          window.alert(tot_form);
-        for (var i=0 ; i<=tot_form ; i++){
-         
-        $('div.mydiv').on("keyup",'input[name^="form-'+i+'-itm_price"]',function(event){
-          for (var i=0 ; i<=tot_form ; i++){
-               window.alert('input[name^="form-'+i+'-itm_price"]');
-          var currentRow=$(this).closest('.subdiv');
-                  var quantity =$(document).find('input[name^="form-'+i+'-ord_qty"]').val();
-                  //alert(quantity);
-                  var unitprice=$(document).find('input[name^="form-'+i+'-itm_price"]').val();
-                 //alert(unitprice);
-                
-                  var total = Number(quantity) * Number(unitprice);
-              window.alert(total);
-                  var total=+currentRow.find('input[name^="total"]').val(total);
-                 // $('#id_tot_price').val(total);
-            var sum = 0;
-            $('.total').each(function() {
-                sum += Number($(this).val());
-            });
-         $('#id_tot_price').val(sum);
-        $('#final_total').val(sum);
-          }
-        });
-             
-             
-             $('div.mydiv').on("keyup",'input[name^="form-'+i+'-ord_qty"]',function(event){
-                  alert("came!");
-                  for (var i=0 ; i<=tot_form ; i++){
-                  var currentRow=$(this).closest('.subdiv');
-                  var quantity = $(document).find('input[name^="form-'+i+'-ord_qty"]').val();
-                  //alert(quantity);
-                  var unitprice= $(document).find('input[name^="form-'+i+'-itm_price"]').val();
-                 //alert(unitprice);
-                
-                  var total = Number(quantity) * Number(unitprice);
-                      window.alert(total);
-                  var total=+currentRow.find('input[name^="total"]').val(total);
-                 // $('#id_tot_price').val(total);
-            var sum = 0;
-            $('.total').each(function() {
-                sum += Number($(this).val());
-            });
-         $('#id_tot_price').val(sum);
-        $('#final_total').val(sum);
+
+
+        <script>
+          function getID(){
+        var id = (this.event.target.id).replace("-total","")
+        //alert(idof)
         
-        var sub_text = $('#id_tot_price').val();
-        var disc=$("#view_discount").val();
-        var sub_total = Number(sub_text)- Number(disc) ; 
-        $("#final_total").val(sub_total);
-        
-        var tot_commi = 0;
-          }
-                  });
-        
-          
-         
-        
-          
-        
-         
-        
-        
-         $('div.mydiv').on("change",'select[name^="select_services"]',function(event){
-                    var currentRow=$(this).closest('.subdiv');
-                    var drop_services= $(this).val();
-                    $.ajax({
-                        type : "POST",
-                        url  : 'ajax_service.php',
-                        data : {drop_services:drop_services },
-                        success: function(data){
-                            currentRow.find('input[name^="form-'+i+'-ord_qty"]').val(1);
-                            currentRow.find('input[name^="form-'+i+'-itm_price"]').val(data);
-                            var quantity =currentRow.find('input[name^="form-'+i+'-ord_qty"]').val();
-                          var unitprice=currentRow.find('input[name^="form-'+i+'-itm_price"]').val();
-                          var total = parseInt(quantity) * parseInt(unitprice);
-                          currentRow.find('input[name^="total"]').val(total);
-                           //var total=+currentRow.find('input[name^="total"]').val(total);
-                 // $('#id_tot_price').val(total);
-            var sum = 0;
+
+        //alert(id)
+
+        var quantity = document.getElementById(id+"-ord_qty").value;
+        //console.log(id+"-ord_qty")
+        //console.log(quantity)
+
+        var unitprice=document.getElementById(id+"-itm_price").value
+        //console.log(unitprice)              
+        var total = Number(quantity) * Number(unitprice);
+        //console.log(total)
+		document.getElementById(this.event.target.id).value = total;	
+    var sum = 0;
             $('.total').each(function() {
                 if($(this).val()!='')
                 {
@@ -338,18 +277,10 @@
         
         var tot_commi = 0;
                         }
-                    });
-                     });
-                    
-              
-                
-        }
-       
-              
-             
-                
-                
-        </script>
+
+   
+</script>
+
         {% endblock javascript %}
         {% endblock %}
         {% endblock %}

@@ -113,26 +113,26 @@ def order(request):
     form = OrderForm(request.POST)
     # recieves a post method for the formset
     formset = OrderItemFormset(request.POST or None)
-
     print(form.is_valid())
-
-    print(formset.errors)
+    print(formset.is_valid)
     if form.is_valid():
         # saves bill
         billobj = form.save(commit=False)
-        billobj.save()
+
         # create bill details object
-        billdetailsobj = Order_detail(ord=billobj)
+
         for f in formset:
             cd = f.cleaned_data
-            billdetailsobj.ord_qty = cd.get('ord_qty')
+            ord = billobj
+            print(f)
+            ord_qty = cd.get('ord_qty')
             prod_nme = Products.objects.get(prod_name=cd.get('prod'))
             print(prod_nme.prod_id)
-            billdetailsobj.prod_id = prod_nme.prod_id
-            billdetailsobj.itm_price = cd.get('itm_price')
-
-        billdetailsobj.save()
-
+            prod_id = prod_nme.prod_id
+            itm_price = cd.get('itm_price')
+            billdetailsobj = Order_detail(
+                ord=ord, prod_id=prod_id, ord_qty=ord_qty, itm_price=itm_price)
+        billobj.save()
         # for loop to save each individual form as its own object
         for form in formset:
 
