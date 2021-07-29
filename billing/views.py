@@ -115,7 +115,7 @@ def order(request):
     formset = OrderItemFormset(request.POST)
     print(form.is_valid())
     print(formset.is_valid())
-    # print(formset.errors)
+    print(formset.errors)
     if form.is_valid():
         # saves bill
         billobj = form.save(commit=False)

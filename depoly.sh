@@ -1,3 +1,3 @@
 git add --all
-git commit -m "First Commit"
+git commit -m "Upadate Store"
 git push heroku main
