@@ -110,56 +110,61 @@ def info(request):
 
 @login_required(login_url='/')
 def order(request):
-    form = OrderForm(request.POST)
-    # recieves a post method for the formset
-    formset = OrderItemFormset(request.POST)
-    print(form.is_valid())
-    print(formset.is_valid())
-    print(formset.errors)
-    if form.is_valid():
-        # saves bill
-        billobj = form.save(commit=False)
-        ord = billobj
-        # create bill details object
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        # recieves a post method for the formset
+        formset = OrderItemFormset(request.POST)
+        print(form.is_valid())
+        print(formset.is_valid())
+        print(len(formset.errors))
+        print(formset.errors)
 
-        for f in formset:
-            cd = f.cleaned_data
+        if form.is_valid():
+            # saves bill
+            billobj = form.save(commit=False)
+            ord = billobj
+            # create bill details object
 
-            print(ord)
-            ord_qty = cd.get('ord_qty')
-            prod_nme = Products.objects.get(prod_name=cd.get('prod'))
-            print(prod_nme.prod_id)
-            prod_id = prod_nme.prod_id
-            itm_price = cd.get('itm_price')
-            billdetailsobj = Order_detail(
-                ord=ord, prod_id=prod_id, ord_qty=ord_qty, itm_price=itm_price)
-        billobj.save()
-        # for loop to save each individual form as its own object
-        for form in formset:
+            for f in formset:
+                cd = f.cleaned_data
 
-            # false saves the item and links bill to the item
+                print(ord)
+                ord_qty = cd.get('ord_qty')
+                prod_nme = Products.objects.get(prod_name=cd.get('prod'))
+                print(prod_nme.prod_id)
+                prod_id = prod_nme.prod_id
+                itm_price = cd.get('itm_price')
+                billdetailsobj = Order_detail(
+                    ord=ord, prod_id=prod_id, ord_qty=ord_qty, itm_price=itm_price)
+            billobj.save()
+            # for loop to save each individual form as its own object
+            for form in formset:
 
-            # links the bill object to the items
+                # false saves the item and links bill to the item
 
-            # gets the stock item
-            stock = get_object_or_404(Products, prod_id=billdetailsobj.prod_id)
-            # calculates the total price
+                # links the bill object to the items
 
-            # updates quantity in stock db
-            stock.prod_stock -= billdetailsobj.ord_qty
-            # saves bill item and stock
-            stock.save()
-            billdetailsobj.save()
-        messages.success(
-            request, "Sold items have been registered successfully")
-        return redirect('/home')
-    form = OrderForm(request.GET or None)
-    formset = OrderItemFormset(request.GET or None)
-    context = {
-        'form': form,
-        'formset': formset,
-    }
-    return render(request, 'order.html', context)
+                # gets the stock item
+                stock = get_object_or_404(
+                    Products, prod_id=billdetailsobj.prod_id)
+                # calculates the total price
+
+                # updates quantity in stock db
+                stock.prod_stock -= billdetailsobj.ord_qty
+                # saves bill item and stock
+                stock.save()
+                billdetailsobj.save()
+            messages.success(
+                request, "Sold items have been registered successfully")
+            return redirect('/home')
+    elif request.method == 'GET':
+        form = OrderForm(request.GET or None)
+        formset = OrderItemFormset(request.GET or None)
+        context = {
+            'form': form,
+            'formset': formset,
+        }
+        return render(request, 'order.html', context)
 
 
 @login_required(login_url='/')

@@ -40,7 +40,7 @@ class OrderItemForm(forms.ModelForm):
 
     class Meta:
         model = Order_detail
-        fields = '__all__'
+        fields = ('prod', 'ord_qty', 'itm_price', )
 
 
 # formset used to render multiple 'SaleItemForm'

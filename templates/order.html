@@ -1,286 +1,296 @@
 <html>
-<!-- Add additional CSS in static file --> 
-{% load static %} 
-<link rel = "stylesheet" type = "text/css" href = "{% static 'table/css/bootstrap.css' %}"/>
-<link rel = "stylesheet" type = "text/css" href = "{% static 'table/css/jquery.dataTables.css' %}"/>
+<!-- Add additional CSS in static file -->
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'table/css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'table/css/jquery.dataTables.css' %}" />
 </head>
 
 <!--<link rel="stylesheet" type="text/css" href="{% static 'css/customer.css' %}"> -->
 
-    <head>{% block title %}<title>Raamjee foods</title>{% endblock %} 
-      {% load static %}
+<head>{% block title %}<title>Raamjee foods</title>{% endblock %}
+  {% load static %}
 
-    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/></head>
-    <body>
-      <h1 style="text-align:right;"><b>{{request.session.username}}</b><br></h1>
-      {% load static %}
-
-      <img src="{% static 'images/img_avatar.jpeg'%}" alt="Avatar" height="100" width="100" align="right" class="avatar">
-
-<br><br>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}" />
 </head>
-<body style="height:1500px">
+
+<body>
+  <h1 style="text-align:right;"><b>{{request.session.username}}</b><br></h1>
+  {% load static %}
+
+  <img src="{% static 'images/img_avatar.jpeg'%}" alt="Avatar" height="100" width="100" align="right" class="avatar">
+
+  <br><br>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <body style="height:1500px">
 
 
-        {% block sidebar %}
-        {% block content %}
-        
-        
-        <style>
-          .hide
-          {
-            display: none;
-          }
-        </style>
-        <div class="pcoded-content">
-        <div class="pcoded-inner-content">
-        
+    {% block sidebar %}
+    {% block content %}
+
+
+    <style>
+      .hide {
+        display: none;
+      }
+    </style>
+    <div class="pcoded-content">
+      <div class="pcoded-inner-content">
+
         <div class="main-body">
-        <div class="page-wrapper">
-        
-        <div class="page-header">
-        <div class="row align-items-end">
-        <div class="col-lg-8">
-        <div class="page-header-title">
-        <div class="d-inline">
-        
-        </div>
-        </div>
-        </div>
-        <div class="col-lg-4">
-        <div class="page-header-breadcrumb">
-        
-        </div>
-        </div>
-        </div>
-        </div>
-        
-        <div class="page-body">
-          {% if formset.non_form_errors %}
-      <div class="alert alertdanger">{{formset.non_form_errors}}</div>
-    {% endif %}
-        
-        <div class="card">
-        <div class="card-block">
-        <form class="form-valide" method="POST" name="userform" enctype="multipart/form-data">
-          {% csrf_token %}
-        
-                                                <div class="row">
-                                                <div class="form-group row col-md-6">
-                                                  <label class="col-sm-3 control-label">Customer</label>
-                                                  <div class="col-sm-9">
-                                                    {{form.cust}}
-                                                    <!-- <input type="text" name="customer_name" class="form-control"> -->
-                                                  </div>
-                                                </div>
-        
-                                              
-                                               
-                                            </div>
-                                                
-                                                  <div class="form-group row">
-        
-                                                   <div class="col-sm-3">
-                                                        <div class="col-sm-12">
-                                                         Product
-                                                        </div>
-                                                </div>
-        
-                                                    <div class="col-sm-2">
-                                                    Quantity
-                                                    </div>
-        
-                                                    <div class="col-sm-2">
-                                                   Sale Price
-                                                    </div>
-        
-                                                    <div class="col-sm-2">
-                                                      Total
-                                                    </div>
-                                                 </div>
-                                                 <div class="mydiv">
-                                                {% csrf_token %}
-                                                  <div class="form-group row control-group after-add-more subdiv">
-                                                    {{ formset.management_form }}   
+          <div class="page-wrapper">
 
-                                                    {% for iform in formset %}
-                                                   <div class="col-sm-3">
-                                                        <div class="col-sm-12">
-                                                           {{iform.prod}}
-                                                        </div>
-                                                </div>
-        
-                                                    <div class="col-sm-2">
-                                                      
-                                                    {{iform.ord_qty}}
-                                                    </div>
-                                                   
-        
-                                                    <div class="col-sm-2">
-                                                   {{iform.itm_price}}
-                                                   </div>
-        
-                                                    <div class="col-sm-2">
-                                                   <input type="text" class="form-control total" id="id_form-0-total" name="form-0-total" placeholder="Total" readonly="" onclick='getID()'>
-                                                    </div>
-        
-                                                    <div class="col-sm-2">
-                                                    <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
-                                                    </div>
-                                                 </div>
-                                          
-                                              </div>
-        
-                                      <div class="form-group row">
-                                          <label class="col-sm-6 control-label">Total</label>
-                                          <div class="col-sm-3">
-                                              {{form.tot_price}}
-                                          </div>
-                                     </div> 
-                                     
-                                   
-                                       
-                                     {% endfor %}
-                                       
-                                     <div class="form-group row">
-                                          <label class="col-sm-6 control-label">Remark</label>
-                                          <div class="col-sm-3">
-                                              <input type="text" name="remark" id="remark" class="form-control" placeholder="Remark">
-                                          </div>
-                                     </div>
-                                     <button type="submit"  class="btn btn-primary btn-flat m-b-30 m-t-30">Submit</button>
-                    </form>
-                   
-                                
-                            
-               
+            <div class="page-header">
+              <div class="row align-items-end">
+                <div class="col-lg-8">
+                  <div class="page-header-title">
+                    <div class="d-inline">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="page-header-breadcrumb">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="page-body">
+              {% if formset.non_form_errors %}
+              <div class="alert alertdanger">{{formset.non_form_errors}}</div>
+              {% endif %}
+
+              <div class="card">
+                <div class="card-block">
+                  <form class="form-valide" method="POST" name="userform" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                      <div class="form-group row col-md-6">
+                        <label class="col-sm-3 control-label">Customer</label>
+                        <div class="col-sm-9">
+                          {{form.cust}}
+                          <!-- <input type="text" name="customer_name" class="form-control"> -->
+                        </div>
+                      </div>
+
+
+
+                    </div>
+
+                    <div class="form-group row">
+
+                      <div class="col-sm-3">
+                        <div class="col-sm-12">
+                          Product
+                        </div>
+                      </div>
+
+                      <div class="col-sm-2">
+                        Quantity
+                      </div>
+
+                      <div class="col-sm-2">
+                        Sale Price
+                      </div>
+
+                      <div class="col-sm-2">
+                        Total
+                      </div>
+                    </div>
+                    <div class="mydiv">
+                      {% csrf_token %}
+                      <div class="form-group row control-group after-add-more subdiv">
+                        {{ formset.management_form }}
+
+                        {% for iform in formset %}
+                        <div class="col-sm-3">
+                          <div class="col-sm-12">
+                            {{iform.prod}}
+                          </div>
+                        </div>
+
+                        <div class="col-sm-2">
+
+                          {{iform.ord_qty}}
+                        </div>
+
+
+                        <div class="col-sm-2">
+                          {{iform.itm_price}}
+                        </div>
+
+                        <div class="col-sm-2">
+                          <input type="text" class="form-control total" id="id_form-0-total" name="form-0-total"
+                            placeholder="Total" readonly="" onclick='getID()'>
+                        </div>
+
+                        <div class="col-sm-2">
+                          <button class="btn btn-success add-more" type="button"><i
+                              class="glyphicon glyphicon-plus"></i> Add</button>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label">Total</label>
+                      <div class="col-sm-3">
+                        {{form.tot_price}}
+                      </div>
+                    </div>
+
+
+
+                    {% endfor %}
+
+                    <div class="form-group row">
+                      <label class="col-sm-6 control-label">Remark</label>
+                      <div class="col-sm-3">
+                        <input type="text" name="remark" id="remark" class="form-control" placeholder="Remark">
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Submit</button>
+                  </form>
+
+
+
+
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
         </div>
-        </div>
-        
-        
-        </div>
-        
-        </div>
-        </div>
-        
+
         <div id="#">
         </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        
-        
-        <!--  Author Name: Nikhil Bhalerao - www.nikhilbhalerao.com 
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+    <!--  Author Name: Nikhil Bhalerao - www.nikhilbhalerao.com 
         PHP, Laravel and Codeignitor Developer -->
-        {% block javascript %}
-        <script type='text/javascript'>
-          function updateElementIndex(el, prefix, ndx) {
-              var id_regex = new RegExp('(' + prefix + '-\\d+)');
-              var replacement = prefix + '-' + ndx;
-              if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
-              if (el.id) el.id = el.id.replace(id_regex, replacement);
-              if (el.name) el.name = el.name.replace(id_regex, replacement);
+    {% block javascript %}
+    <script type='text/javascript'>
+      function updateElementIndex(el, prefix, ndx) {
+        var id_regex = new RegExp('(' + prefix + '-\\d+)');
+        var replacement = prefix + '-' + ndx;
+        if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+        if (el.id) el.id = el.id.replace(id_regex, replacement);
+        if (el.name) el.name = el.name.replace(id_regex, replacement);
+      }
+
+      function cloneMore(selector, prefix) {
+        var newElement = $(selector).clone(true);
+        var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+        newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function () {
+          var name = $(this).attr('name').replace('-' + (total - 1) + '-', '-' + total + '-');
+          var id = 'id_' + name;
+          // console.log(id)
+
+          $(this).attr({
+            'name': name,
+            'id': id
+          }).val('').removeAttr('checked');
+        });
+        newElement.find('label').each(function () {
+          var forValue = $(this).attr('for');
+          if (forValue) {
+            forValue = forValue.replace('-' + (total - 1) + '-', '-' + total + '-');
+            $(this).attr({
+              'for': forValue
+            });
           }
-          function cloneMore(selector, prefix) {
-              var newElement = $(selector).clone(true);
-              var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
-              newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
-                  var name = $(this).attr('name').replace('-' + (total-1) + '-', '-' + total + '-');
-                  var id = 'id_' + name;
-                 // console.log(id)
+        });
+        total++;
+        //console.log(total)
+        $('#id_' + prefix + '-TOTAL_FORMS').val(total);
 
-                  $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
-              });
-              newElement.find('label').each(function() {
-                  var forValue = $(this).attr('for');
-                  if (forValue) {
-                    forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
-                    $(this).attr({'for': forValue});
-                  }
-              });
-              total++;
-              //console.log(total)
-              $('#id_' + prefix + '-TOTAL_FORMS').val(total);
-             
-              $(selector).after(newElement);
-              var conditionRow = $('.after-add-more:not(:last)');
-              conditionRow.find('.btn.add-more')
-              .removeClass('btn-success').addClass('btn-danger')
-              .removeClass('add-more').addClass('remove')
-              .html('<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>');
-              return false;
+        $(selector).after(newElement);
+        var conditionRow = $('.after-add-more:not(:last)');
+        conditionRow.find('.btn.add-more')
+          .removeClass('btn-success').addClass('btn-danger')
+          .removeClass('add-more').addClass('remove')
+          .html('<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>');
+        return false;
+      }
+
+      function deleteForm(prefix, btn) {
+        var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+        if (total > 1) {
+          btn.closest('.after-add-more').remove();
+          var forms = $('.after-add-more');
+          $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+          for (var i = 0, formCount = forms.length; i < formCount; i++) {
+            $(forms.get(i)).find(':input').each(function () {
+              updateElementIndex(this, prefix, i);
+            });
           }
-          function deleteForm(prefix, btn) {
-              var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
-              if (total > 1){
-                  btn.closest('.after-add-more').remove();
-                  var forms = $('.after-add-more');
-                  $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
-                  for (var i=0, formCount=forms.length; i<formCount; i++) {
-                      $(forms.get(i)).find(':input').each(function() {
-                          updateElementIndex(this, prefix, i);
-                      });
-                  }
-              }
-              return false;
-          }
-          $(document).on('click', '.add-more', function(e){
-              e.preventDefault();
-              cloneMore('.after-add-more:last', 'form');
-              var form_idx = $('#id_form-TOTAL_FORMS').val();
-
-              return false;
-          });
-          $(document).on('click', '.remove', function(e){
-              e.preventDefault();
-              deleteForm('form', $(this));
-              return false;
-          });
-          </script>
+        }
+        return false;
+      }
+      $(document).on('click', '.add-more', function (e) {
+        e.preventDefault();
+        cloneMore('.after-add-more:last', 'form');
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        var f = $(' #id_form-MAX_NUM_FORMS').val()
+        console.log(f)
+        return false;
+      });
+      $(document).on('click', '.remove', function (e) {
+        e.preventDefault();
+        deleteForm('form', $(this));
+        return false;
+      });
+    </script>
 
 
 
-        <script>
-          function getID(){
-        var id = (this.event.target.id).replace("-total","")
+    <script>
+      function getID() {
+        var id = (this.event.target.id).replace("-total", "")
         //alert(idof)
-        
+
 
         //alert(id)
 
-        var quantity = document.getElementById(id+"-ord_qty").value;
+        var quantity = document.getElementById(id + "-ord_qty").value;
         //console.log(id+"-ord_qty")
         //console.log(quantity)
 
-        var unitprice=document.getElementById(id+"-itm_price").value
+        var unitprice = document.getElementById(id + "-itm_price").value
         //console.log(unitprice)              
         var total = Number(quantity) * Number(unitprice);
         //console.log(total)
-		document.getElementById(this.event.target.id).value = total;	
-    var sum = 0;
-            $('.total').each(function() {
-                if($(this).val()!='')
-                {
-                    sum += parseInt($(this).val());
-                }
-                
-            });
-            
+        document.getElementById(this.event.target.id).value = total;
+        var sum = 0;
+        $('.total').each(function () {
+          if ($(this).val() != '') {
+            sum += parseInt($(this).val());
+          }
+
+        });
+
         var sub = $('#id_tot_price').val(sum);
         var fsub = $('#final_total').val(sum);
-        
+
         var tot_commi = 0;
-                        }
+      }
+    </script>
 
-   
-</script>
-
-        {% endblock javascript %}
-        {% endblock %}
-        {% endblock %}
+    {% endblock javascript %}
+    {% endblock %}
+    {% endblock %}
